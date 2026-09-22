@@ -1,0 +1,29 @@
+<!doctype html>
+<!-- Anti-adblock wall mock (Admiral-style, modelled on a TechCrunch screenshot):
+     a late-appearing modal + dim backdrop + scroll lock, next to things that
+     must survive: an article that discusses ad blockers and a cookie dialog. -->
+<html><head><meta charset="utf-8"><style>
+  body { font: 16px system-ui; margin: 0; } article { max-width: 700px; margin: 40px auto; height: 3000px; }
+  .backdrop { position: fixed; inset: 0; background: rgba(0,0,0,.6); z-index: 9998; }
+  .wall { position: fixed; top: 30%; left: 25%; width: 50%; background: green; color: white; padding: 24px; z-index: 9999; }
+  .cookies { position: fixed; bottom: 0; left: 0; right: 0; background: #eee; padding: 16px; z-index: 5000; }
+</style></head><body>
+<article id="article">
+  <h1>A new kind of AI model</h1>
+  <p id="about">Ad blockers are used by 40% of readers; publishers say an ad blocker costs them revenue.</p>
+</article>
+<div class="cookies" id="cookies" role="dialog">We use cookies to improve your experience. <button>Accept</button> <button>Reject</button></div>
+<script>
+  setTimeout(() => {
+    document.body.style.overflow = 'hidden';
+    document.body.insertAdjacentHTML('beforeend', `
+      <div class="backdrop" id="backdrop"></div>
+      <div class="wall" id="wall">
+        <h2>Support Us by Disabling Your Adblocker</h2>
+        <p>Our content is made possible by the support of our advertisers. Please consider disabling your adblocker.</p>
+        <button>Disable my adblocker</button>
+        <div><a href="#">Continue without disabling</a> | <a href="#">Contact support</a></div>
+      </div>`);
+  }, 1200);
+</script>
+</body></html>

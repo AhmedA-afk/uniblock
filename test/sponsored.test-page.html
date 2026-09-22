@@ -1,0 +1,54 @@
+<!doctype html>
+<!-- Facebook-like mock: generated class names, no roles on posts, labels as
+     plain text or split into letters; a right column with a "Sponsored"
+     section above "Friend requests". Modelled on a real screenshot. -->
+<html><head><meta charset="utf-8"><style>
+  body { margin: 0; font: 15px system-ui; display: flex; gap: 24px; }
+  .x1 { width: 680px; } .x2 > div { background: #eee; margin: 12px 0; padding: 12px; }
+  .hdr { display: flex; gap: 6px; align-items: center; } .meta { font-size: 13px; color: #666; }
+  .media { height: 300px; background: #cde; } .bar { height: 40px; }
+  .rail { width: 330px; } .rt { font-size: 17px; font-weight: 700; margin: 12px 0; }
+  .card { display: flex; gap: 8px; height: 180px; margin: 8px 0; background: #f6f6f6; }
+  .scr span { display: inline-block; } .scr .hide { display: none; }
+</style></head><body>
+<div class="x1"><div class="x2" role="feed">
+  <div id="friend"><div class="hdr"><b>Priya Shah</b><span class="meta">2h · Friends</span></div>
+    <p>Finally finished my first half marathon!</p><div class="media"></div><div class="bar">Like Comment Share</div></div>
+  <div id="ad-plain"><div class="hdr"><b>Beyond Snáck</b><span class="meta"><a href="#">Ad</a> · 🌐</span></div>
+    <p>Why Makhana? When U Can have BANANA!!!</p><div class="media"></div>
+    <div class="bar">LINK.BLINKIT.COM <button>Order now</button></div></div>
+  <div id="ad-mention"><div class="hdr"><b>Rahul</b><span class="meta">5h</span></div>
+    <p>Saw an Ad on the metro today that made no sense. Sponsored by who??</p><div class="media"></div><div class="bar">Like Comment Share</div></div>
+  <div id="ad-split"><div class="hdr"><b>Glow Skincare</b><span class="meta scr"><span>S</span><span>p</span><span class="hide">x</span><span>o</span><span>n</span><span>s</span><span>o</span><span>r</span><span>e</span><span>d</span></span></div>
+    <p>Clear skin in 14 days.</p><div class="media"></div><div class="bar"><button>Learn more</button></div></div>
+  <div id="ad-labelledby"><div class="hdr"><span aria-hidden="true" style="position:absolute;left:-9999px">Facebook</span><b>lablab.ai</b>
+    <span class="meta"><a href="#">&#x2060;<span><span aria-labelledby="_r_q_" style="display:inline-block;width:17px;height:15px"><span></span></span></span></a><span aria-hidden="true"> · </span>🌐</span></div>
+    <p>Learning AI shouldn't feel like a chore.</p><div class="media"></div><div class="bar"><button>Sign up</button></div></div>
+  <div id="ad-wordjoiner"><div class="hdr"><b>Google</b>
+    <span class="meta"><a href="?__cft__[0]=x#?cck" class="fb-ad">&#x2060;<span><span><span></span></span></span></a><span aria-hidden="true"> · </span>🌐</span></div>
+    <p>Gemini in Chrome.</p><div class="media"></div><div class="bar"><button>Learn more</button></div></div>
+  <div id="organic-timestamp"><div class="hdr"><b>F1</b>
+    <span class="meta"><a href="?__cft__[0]=x&amp;__tn__=%2CO#?jbk"><span><span aria-labelledby="_r_pt_" style="display:inline-block;width:81px;height:15px"><span></span></span></span></a> · 🌐</span></div>
+    <p>A suit fitting for a night race.</p><div class="media"></div><div class="bar">Like Comment Share</div></div>
+  <div id="news"><div class="hdr"><b>The Hindu</b><span class="meta">1h</span></div>
+    <p>Monsoon rainfall in Gujarat is 12% above normal.</p><div class="media"></div><div class="bar">Like Comment Share</div></div>
+</div></div>
+<div id="_r_q_" style="position:absolute;width:0;height:0;overflow:hidden">Ad</div>
+<div id="_r_pt_" style="position:absolute;width:0;height:0;overflow:hidden">17 hours ago</div>
+<style>.fb-ad span span span::after { content: "Ad"; }</style>
+<div class="rail">
+  <div id="rail-sponsored"><div><span class="rt">Sponsored</span></div>
+    <div><a class="card" href="#"><div style="width:180px;background:#fdd"></div><div>Now ₹399/mo for Students.<br><span class="meta">adobe.com</span></div></a>
+    <a class="card" href="#"><div style="width:180px;background:#dfd"></div><div>Your Agent's Web Bill: $0<br><span class="meta">agent.tinyfish.ai</span></div></a></div></div>
+  <div id="rail-friends"><div class="rt">Friend requests</div><div class="card">Tirth Patel · 2 mutual friends</div></div>
+</div>
+<script>
+  // A sponsored post that arrives later, like infinite scroll.
+  setTimeout(() => {
+    const el = document.createElement('div');
+    el.id = 'ad-late';
+    el.innerHTML = '<div class="hdr"><b>TinyFish</b><span class="meta">Sponsored · 🌐</span></div><p>$0 web search.</p><div class="media"></div><div class="bar"><button>Sign up</button></div>';
+    document.querySelector('.x2').append(el);
+  }, 1500);
+</script>
+</body></html>

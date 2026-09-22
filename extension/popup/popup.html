@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>uniblock</title>
+  <link rel="stylesheet" href="popup.css">
+</head>
+<body>
+  <header>
+    <span class="brand">uniblock</span>
+    <span class="host" id="host">—</span>
+  </header>
+
+  <section class="site">
+    <div class="count"><strong id="blocked">0</strong> blocked on this page</div>
+    <p class="saved" id="saved" hidden></p>
+    <label class="toggle" id="site-toggle">
+      <input type="checkbox" id="enabled" role="switch">
+      <span class="track"><span class="thumb"></span></span>
+      <span id="enabled-label">Blocking on this site</span>
+    </label>
+    <p class="note" id="note" hidden></p>
+    <p class="note" id="skipped" hidden></p>
+  </section>
+
+  <section class="lists">
+    <div class="row">
+      <h2>Cookie banners</h2>
+      <select id="cookie-mode" aria-label="Cookie banner choice">
+        <option value="off">Leave them to me</option>
+        <option value="essential">Reject non-essential</option>
+        <option value="reject">Reject all</option>
+        <option value="accept">Accept all</option>
+      </select>
+    </div>
+    <p class="note" id="cookie-note"></p>
+  </section>
+
+  <section class="lists">
+    <label class="toggle" id="jev-toggle">
+      <input type="checkbox" id="jev" role="switch">
+      <span class="track"><span class="thumb"></span></span>
+      <span>Experimental: Jev feed classifier</span>
+    </label>
+    <p class="note" id="jev-note">Sends feed post text to the local Jev proxy, which forwards it to TypeSafe.</p>
+  </section>
+
+  <section class="lists">
+    <div class="row">
+      <h2>Filter lists</h2>
+      <button id="update" type="button">Update now</button>
+    </div>
+    <ul id="lists"></ul>
+    <p class="meta" id="meta"></p>
+  </section>
+
+  <section class="lists" id="dev" hidden>
+    <div class="row">
+      <h2>Developer</h2>
+      <button id="snapshot" type="button">Send debug snapshot</button>
+    </div>
+    <p class="note" id="snapshot-note">Saves this page's structure to the local dev proxy.</p>
+  </section>
+
+  <footer>
+    Community lists are downloaded from their authors and used unmodified.
+    Credits: <span id="credits"></span>
+  </footer>
+  <script type="module" src="popup.js"></script>
+</body>
+</html>

@@ -1,0 +1,5 @@
+# Third-party GPL sources, kept for study only. Never commit, never ship.
+/reference/
+node_modules/
+test/popup.png
+backend/jev-proxy/snapshots/

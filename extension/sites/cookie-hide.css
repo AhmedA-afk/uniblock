@@ -1,0 +1,28 @@
+/* Keeps known consent-platform banners from ever being painted, while
+   sites/cookies.js answers them behind the scenes. Registered by the
+   background worker only while a cookie mode is on, and switched off for a
+   page by adding the class below (sites/cookies.js does that when it can't
+   answer, so the banner is never silently swallowed).
+
+   "visibility: hidden" rather than "display: none": the banner keeps its
+   size, so the script can still tell which buttons are real and press them.
+
+   Keep this list in step with CMP_ROOTS in sites/cookies.js. */
+html:not(.uniblock-cookie-reveal) #onetrust-banner-sdk,
+html:not(.uniblock-cookie-reveal) #onetrust-pc-sdk,
+html:not(.uniblock-cookie-reveal) #onetrust-consent-sdk,
+html:not(.uniblock-cookie-reveal) #CybotCookiebotDialog,
+html:not(.uniblock-cookie-reveal) #CybotCookiebotDialogBodyUnderlay,
+html:not(.uniblock-cookie-reveal) #didomi-host,
+html:not(.uniblock-cookie-reveal) .qc-cmp2-container,
+html:not(.uniblock-cookie-reveal) #usercentrics-root,
+html:not(.uniblock-cookie-reveal) #usercentrics-cmp-ui,
+html:not(.uniblock-cookie-reveal) #truste-consent-track,
+html:not(.uniblock-cookie-reveal) [id^="sp_message_container"],
+html:not(.uniblock-cookie-reveal) .cky-consent-container,
+html:not(.uniblock-cookie-reveal) .cky-preference-center,
+html:not(.uniblock-cookie-reveal) .cmplz-cookiebanner,
+html:not(.uniblock-cookie-reveal) .osano-cm-window,
+html:not(.uniblock-cookie-reveal) .fc-consent-root {
+  visibility: hidden !important;
+}

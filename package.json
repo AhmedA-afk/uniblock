@@ -1,0 +1,22 @@
+{
+  "name": "uniblock",
+  "version": "0.1.0",
+  "private": true,
+  "license": "UNLICENSED",
+  "type": "module",
+  "scripts": {
+    "test": "node --test test/*.test.js",
+    "coverage:lists": "node scripts/list-coverage.js",
+    "test:e2e": "node test/e2e.mjs",
+    "test:youtube": "node test/youtube-live.mjs",
+    "test:jev": "node test/jev-feed-live.mjs",
+    "test:sponsored": "node test/sponsored-live.mjs",
+    "test:antiadblock": "node test/antiadblock-live.mjs",
+    "test:video-ads": "node test/video-ads-live.mjs",
+    "test:popup": "node test/popup-live.mjs",
+    "test:cookies": "node test/cookies-live.mjs"
+  },
+  "devDependencies": {
+    "puppeteer": "25.11.0"
+  }
+}

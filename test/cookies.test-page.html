@@ -1,0 +1,102 @@
+<!doctype html>
+<!-- Cookie banner mocks, one per ?b= value. Each records what was chosen in
+     window.consent and removes itself, like a real consent platform.
+       simple   — OneTrust-style: Accept all / Reject all / Customise
+       settings — German, only Accept + Einstellungen; settings panel with
+                  locked Notwendig, Statistik, Marketing, berechtigtes Interesse
+       odd      — wording the patterns don't know (needs Jev)
+       news     — a newsletter dialog, not a cookie banner: must be left alone -->
+<html><head><meta charset="utf-8"><style>
+  body { font: 15px system-ui; } .bar { position: fixed; left: 0; right: 0; bottom: 0; background: #eee; padding: 16px; }
+  .panel { position: fixed; inset: 10% 20%; background: #fff; border: 1px solid #999; padding: 16px; }
+  label { display: block; margin: 6px 0; }
+</style></head><body><h1>Article <svg width="16" height="16"><circle cx="8" cy="8" r="6"></circle></svg></h1>
+<script>
+  const b = new URLSearchParams(location.search).get('b');
+  window.consent = null;
+  // How long a reader could actually see the banner, measured per frame.
+  window.seen = { ms: 0, frames: 0 };
+  let lastFrame = performance.now();
+  (function watch() {
+    const now = performance.now();
+    const el = document.querySelector('.bar, .panel, #onetrust-banner-sdk, #onetrust-pc-sdk');
+    if (el && el.checkVisibility({ visibilityProperty: true, opacityProperty: true })) {
+      window.seen.ms += now - lastFrame;
+      window.seen.frames++;
+    }
+    lastFrame = now;
+    requestAnimationFrame(watch);
+  })();
+  const done = (choice) => { window.consent = choice; document.querySelectorAll('.bar, .panel').forEach((e) => e.remove()); };
+  const add = (html) => { const d = document.createElement('div'); d.innerHTML = html; document.body.append(d.firstElementChild); };
+  setTimeout(() => {
+    if (b === 'simple') {
+      add(`<div id="onetrust-banner-sdk" class="bar">We use cookies to improve your experience and for ads.
+        <button id="acc">Accept All Cookies</button> <button id="rej">Reject All</button> <button id="cus">Cookies Settings</button></div>`);
+      document.getElementById('acc').onclick = () => done('accept-all');
+      document.getElementById('rej').onclick = () => done('reject-all');
+    }
+    if (b === 'settings') {
+      add(`<div class="bar" role="dialog">Wir verwenden Cookies. Zwecke: Statistik, Marketing, berechtigtes Interesse.
+        <button id="acc">Alle akzeptieren</button> <button id="set">Einstellungen</button></div>`);
+      document.getElementById('acc').onclick = () => done('accept-all');
+      document.getElementById('set').onclick = () => {
+        document.querySelector('.bar').remove();
+        add(`<div class="panel" role="dialog"><h2>Cookie-Einstellungen</h2>
+          <label><input type="checkbox" id="c-need" checked disabled> Notwendig (immer aktiv)</label>
+          <label><input type="checkbox" id="c-stat" checked> Statistik</label>
+          <label><input type="checkbox" id="c-mkt" checked> Marketing</label>
+          <label><input type="checkbox" id="c-li" checked> Berechtigtes Interesse</label>
+          <button id="save">Auswahl speichern</button></div>`);
+        document.getElementById('save').onclick = () => done(['need', 'stat', 'mkt', 'li'].filter((k) => document.getElementById('c-' + k).checked).join(','));
+      };
+    }
+    if (b === 'odd') {
+      add(`<div class="bar" role="dialog">We value your privacy. We and our 842 partners store and access cookies on your device.
+        <button id="acc">Sounds good</button> <button id="ess">Continue with essentials</button> <a href="/privacy">Privacy policy</a></div>`);
+      document.getElementById('acc').onclick = () => done('accept-all');
+      document.getElementById('ess').onclick = () => done('essentials');
+    }
+    if (b === 'shadow') {
+      // Usercentrics-style: the host appears empty, and its closed shadow
+      // root is filled a second later (page observers can't see that).
+      const host = document.createElement('div');
+      host.id = 'usercentrics-cmp-ui';
+      document.body.append(host);
+      const root = host.attachShadow({ mode: 'closed' });
+      setTimeout(() => {
+        root.innerHTML = `<style>.box{position:fixed;inset:30% 30%;background:#fff;border:1px solid #999;padding:16px}</style>
+          <div class="box" role="dialog"><h2>We value your privacy</h2><p>We and our partners use cookies and similar technologies.</p>
+          <button id="deny">Deny</button> <button id="acc">Accept all and close</button></div>`;
+        root.getElementById('deny').onclick = () => { window.consent = 'deny'; host.remove(); };
+        root.getElementById('acc').onclick = () => { window.consent = 'accept-all'; host.remove(); };
+      }, 1000);
+    }
+    if (b === 'onetrust-pc') {
+      // OneTrust-style: banner with only Manage + Accept; settings open in a
+      // separate panel while the banner stays in the page.
+      add(`<div id="onetrust-banner-sdk" class="bar">We use cookies and personal data. <button id="man">Manage Privacy Settings</button> <button id="acc">Accept</button></div>`);
+      document.getElementById('acc').onclick = () => done('accept-all');
+      document.getElementById('man').onclick = () => {
+        add(`<div id="onetrust-pc-sdk" class="panel" role="dialog"><h2>Privacy Preference Center</h2>
+          <label><input type="checkbox" id="c-need" checked disabled> Strictly Necessary Cookies (Always Active)</label>
+          <label><input type="checkbox" id="c-perf" checked> Performance Cookies</label>
+          <label><input type="checkbox" id="c-tgt" checked> Targeting Cookies</label>
+          <button id="save">Confirm My Choices</button></div>`);
+        document.getElementById('save').onclick = () => done(['need', 'perf', 'tgt'].filter((k) => document.getElementById('c-' + k).checked).join(','));
+      };
+    }
+    if (b === 'payorok') {
+      // "Pay or OK" (marca.com style): refusing means subscribing.
+      add(`<div class="bar" role="dialog">Utilizamos cookies. Puedes aceptar y continuar gratis o suscribirte.
+        <button id="acc">Acepto y continúo gratis</button> <button id="sub">Rechazo y me suscribo</button></div>`);
+      document.getElementById('acc').onclick = () => done('accept-all');
+      document.getElementById('sub').onclick = () => done('SUBSCRIBE-FLOW');
+    }
+    if (b === 'news') {
+      add(`<div class="bar" role="dialog">Get our newsletter every morning. <button id="sub">Subscribe</button> <button id="no">No thanks</button></div>`);
+      document.getElementById('no').onclick = () => done('newsletter-dismissed');
+    }
+  }, 800);
+</script>
+</body></html>

@@ -1,0 +1,28 @@
+! Title: uniblock built-in list
+! Proprietary. Every entry is our own finding; nothing here is copied from
+! another list (docs/LICENSING.md). Provenance: source / date / how found.
+!
+! YouTube — observed in Chrome DevTools, 2026-09-19
+! Sidebar ad on watch pages (#player-ads > ytd-player-legacy-desktop-watch-ads-renderer)
+youtube.com###player-ads
+! Banner slot above the home feed
+youtube.com###masthead-ad
+! In-feed ad cards (page data carries adSlotRenderer / inFeedAdLayoutRenderer)
+youtube.com##ytd-rich-item-renderer:has(ytd-ad-slot-renderer)
+youtube.com##ytd-ad-slot-renderer
+! Ads side panel on watch pages
+youtube.com##ytd-engagement-panel-section-list-renderer[target-id="engagement-panel-ads"]
+!
+! YouTube anti-adblock: requests YouTube uses to check that ads *could* load.
+! Blocking them (EasyList/EasyPrivacy do) is how YouTube spots a blocker: first
+! frame went from ~2-3 s to 11 s, 18 s, and never, and `google_ad_status` was
+! undefined instead of 1. Measured with test/youtube-diagnose.mjs, 2026-09-19.
+! Video ads are stopped by sites/youtube-main.js instead, so these can load.
+@@||static.doubleclick.net/instream/ad_status.js$domain=youtube.com
+@@||googleads.g.doubleclick.net/pagead/id$domain=youtube.com
+@@||www.youtube.com/api/stats/$domain=youtube.com
+@@||www.youtube.com/ptracking$domain=youtube.com
+@@||www.youtube.com/generate_204$domain=youtube.com
+@@||www.youtube.com/pagead/$domain=youtube.com
+@@/pagead/lvz?$domain=youtube.com
+@@/pagead/1p-user-list/$domain=youtube.com
