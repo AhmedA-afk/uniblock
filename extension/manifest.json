@@ -2,7 +2,8 @@
   "manifest_version": 3,
   "name": "uniblock",
   "version": "0.1.0",
-  "description": "Blocks ads and trackers.",
+  "description": "Free, open-source ad and tracker blocker.",
+  "homepage_url": "https://github.com/AhmedA-afk/uniblock",
   "minimum_chrome_version": "121",
   "background": {
     "service_worker": "background.js",

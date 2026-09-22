@@ -5,7 +5,8 @@ toggle. It holds the TypeSafe key (never ship it in the extension) and asks Jev
 three narrow questions per feed post; code turns the answers into a verdict.
 
 ```bash
-node --env-file=../typesafe_jev/.env backend/jev-proxy/server.mjs   # any file with TYPESAFE_API_KEY
+TYPESAFE_API_KEY=... node backend/jev-proxy/server.mjs
+# or: node --env-file=<file with TYPESAFE_API_KEY> backend/jev-proxy/server.mjs
 ```
 
 Listens on `127.0.0.1:8787` only. Each classification is logged to stdout as

@@ -1,10 +1,8 @@
-# backend (not started)
+# backend
 
-Planned scope. Nothing here sees users' browsing — no page traffic passes
-through it.
+uniblock has no server. Blocking runs entirely in the browser, and no page
+traffic passes through anything here.
 
-- Accounts, licence tokens, payment webhooks (merchant of record)
-- The uniblock list: versioned, published as static files behind a CDN
-- Report intake: opt-in "this is an ad" reports from the extension
-- Jev pipeline: scheduled job that classifies reports into list entries.
-  The TypeSafe API key lives here only, never in the extension.
+- **[jev-proxy/](jev-proxy/README.md)**: an optional proxy you run on your
+  own machine for the experimental Jev feed classifier. It holds your TypeSafe
+  API key so the key never goes into the extension.
